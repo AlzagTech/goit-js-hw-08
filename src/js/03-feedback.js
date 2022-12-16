@@ -8,9 +8,17 @@ let formData = {};
 const FORM_DATA_KEY = 'feedback-form-state';
 
 if (localStorage.getItem(FORM_DATA_KEY)) {
-  const { email, message } = JSON.parse(localStorage.getItem(FORM_DATA_KEY));
-  refs.form.email.value = email || '';
-  refs.form.message.value = message || '';
+  try {
+    const savedFormData = JSON.parse(localStorage.getItem(FORM_DATA_KEY));
+
+    for (const key in savedFormData) {
+      formData[key] = savedFormData[key];
+
+      refs.form[key].value = savedFormData[key];
+    }
+  } catch (error) {
+    console.log(error.name);
+  }
 }
 
 refs.form.addEventListener('input', throttle(onFormInput, 1000));
