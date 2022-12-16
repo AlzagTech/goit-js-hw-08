@@ -6,7 +6,9 @@ const player = new Player(iframe);
 
 const PLAYER_CURRENT_TIME_KEY = 'videoplayer-current-time';
 
-player.setCurrentTime(getCurrentTimeValue());
+if (getCurrentTimeValue()) {
+  player.setCurrentTime(getCurrentTimeValue());
+}
 
 player.on('timeupdate', throttle(saveCurrentTimeValue, 1000));
 
